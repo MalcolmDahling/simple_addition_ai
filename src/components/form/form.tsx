@@ -9,7 +9,7 @@ export default function Form() {
   const [answer, setAnswer] = useState<null | number>(null);
   const [number0, setNumber0] = useState<string>('0');
   const [number1, setNumber1] = useState<string>('0');
-  const [trainingText, setTrainingText] = useState('Train');
+  const [trainingText, setTrainingText] = useState('Training');
 
   const regex = /^(1[0-5]|[0-9])$/;
 

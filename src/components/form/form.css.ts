@@ -50,6 +50,7 @@ export const InnerContrainerStyle = recipe({
 
 export const ButtonStyle = recipe({
   base: {
+    position: 'relative',
     minHeight: 55,
     flex: '1 1 auto',
     padding: '5px 20px',
@@ -88,7 +89,7 @@ export const ButtonStyle = recipe({
 export const SvgContainerStyle = recipe({
   base: {
     position: 'relative',
-    top: 9.5,
+    bottom: -9.5,
     left: -1,
   },
 });
