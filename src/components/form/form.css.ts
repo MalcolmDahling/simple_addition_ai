@@ -56,23 +56,40 @@ export const ButtonStyle = recipe({
 
     backgroundColor: colors.darkGray,
     border: `2px solid ${colors.blue}`,
-    cursor: 'pointer',
-
-    ':hover': {
-      backgroundColor: colors.lightGray,
-    },
-
-    ':disabled': {
-      backgroundColor: colors.darkGray,
-    },
   },
 
   variants: {
-    fullWidth: {
+    trainButton: {
       true: {
         width: '100%',
+
+        display: 'flex',
+        justifyContent: 'center',
       },
     },
+
+    disabled: {
+      true: {
+        ':disabled': {
+          backgroundColor: colors.darkGray,
+        },
+      },
+      false: {
+        cursor: 'pointer',
+
+        ':hover': {
+          backgroundColor: colors.lightGray,
+        },
+      },
+    },
+  },
+});
+
+export const SvgContainerStyle = recipe({
+  base: {
+    position: 'relative',
+    top: 9.5,
+    left: -1,
   },
 });
 

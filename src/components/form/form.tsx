@@ -1,6 +1,7 @@
-import { BottomContainerStyle, ButtonStyle, ContainerStyle, H1Style, InnerContrainerStyle, ParagraphStyle, TextInputStyle } from './form.css';
+import { BottomContainerStyle, ButtonStyle, ContainerStyle, H1Style, InnerContrainerStyle, ParagraphStyle, SvgContainerStyle, TextInputStyle } from './form.css';
 import { train, predict, dataset, net } from '@/functions/ai';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 export default function Form() {
   const [network, setNetwork] = useState<any>();
@@ -15,14 +16,14 @@ export default function Form() {
   function handleClickTraining() {
     if (training || network) return;
 
-    setTrainingText('Training...');
+    setTrainingText('Training');
     setTraining(true);
 
     setTimeout(() => {
       setNetwork(train(net, dataset, 2000));
       setTraining(false);
       setTrainingText('Training Complete!');
-    }, 0);
+    }, 100);
   }
 
   function handleClickCalculate() {
@@ -53,10 +54,12 @@ export default function Form() {
         </p>
 
         <button
-          className={ButtonStyle({ fullWidth: true })}
+          className={ButtonStyle({ trainButton: true, disabled: network ? true : false })}
           onClick={handleClickTraining}
         >
           {trainingText}
+
+          <div className={SvgContainerStyle()}>{trainingText === 'Training' && <ReactSVG src="/svg/spinner.svg" />}</div>
         </button>
 
         <div className={InnerContrainerStyle()}>
@@ -79,7 +82,7 @@ export default function Form() {
           ></input>
 
           <button
-            className={ButtonStyle()}
+            className={ButtonStyle({ disabled: !network || !number0 || !number1 })}
             onClick={handleClickCalculate}
             disabled={!network || !number0 || !number1}
           >
