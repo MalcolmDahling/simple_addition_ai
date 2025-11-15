@@ -66,6 +66,7 @@ export const ButtonStyle = recipe({
 
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'flex-end',
       },
     },
 
@@ -88,9 +89,10 @@ export const ButtonStyle = recipe({
 
 export const SvgContainerStyle = recipe({
   base: {
+    height: 12,
     position: 'relative',
-    bottom: -9.5,
-    left: -1,
+    bottom: 8.5,
+    left: -2,
   },
 });
 
