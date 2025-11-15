@@ -1,7 +1,6 @@
-import { BottomContainerStyle, ButtonStyle, ContainerStyle, H1Style, InnerContrainerStyle, ParagraphStyle, SvgContainerStyle, TextInputStyle } from './form.css';
-import { train, predict, dataset, net } from '@/functions/ai';
+import { BottomContainerStyle, ButtonStyle, ContainerStyle, H1Style, InnerContrainerStyle, ParagraphStyle, TextInputStyle } from './form.css';
+import { predict } from '@/functions/ai';
 import { useState } from 'react';
-import { ReactSVG } from 'react-svg';
 
 export default function Form() {
   const [network, setNetwork] = useState<any>();
@@ -9,21 +8,32 @@ export default function Form() {
   const [answer, setAnswer] = useState<null | number>(null);
   const [number0, setNumber0] = useState<string>('0');
   const [number1, setNumber1] = useState<string>('0');
-  const [trainingText, setTrainingText] = useState('Training');
+  const [trainingText, setTrainingText] = useState('Train');
 
   const regex = /^(1[0-5]|[0-9])$/;
 
   function handleClickTraining() {
     if (training || network) return;
 
-    setTrainingText('Training');
     setTraining(true);
 
-    setTimeout(() => {
-      setNetwork(train(net, dataset, 2000));
+    setTrainingText('Training');
+    let dotCount = 0;
+    const interval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4;
+      setTrainingText('Training' + '.'.repeat(dotCount));
+    }, 500);
+
+    const worker = new Worker(new URL('../../functions/worker.ts', import.meta.url));
+    worker.onmessage = (e) => {
+      setNetwork(e.data);
       setTraining(false);
       setTrainingText('Training Complete!');
-    }, 100);
+      clearInterval(interval);
+      worker.terminate();
+    };
+
+    worker.postMessage('start');
   }
 
   function handleClickCalculate() {
@@ -57,9 +67,7 @@ export default function Form() {
           className={ButtonStyle({ trainButton: true, disabled: network ? true : false })}
           onClick={handleClickTraining}
         >
-          {trainingText}
-
-          <div className={SvgContainerStyle()}>{trainingText === 'Training' && <ReactSVG src="/svg/spinner.svg" />}</div>
+          <span style={{ width: training ? 128 : '100%', textAlign: training ? 'left' : 'center' }}>{trainingText}</span>
         </button>
 
         <div className={InnerContrainerStyle()}>

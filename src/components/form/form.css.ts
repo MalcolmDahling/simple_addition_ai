@@ -63,10 +63,8 @@ export const ButtonStyle = recipe({
     trainButton: {
       true: {
         width: '100%',
-
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-end',
       },
     },
 
@@ -84,15 +82,6 @@ export const ButtonStyle = recipe({
         },
       },
     },
-  },
-});
-
-export const SvgContainerStyle = recipe({
-  base: {
-    height: 12,
-    position: 'relative',
-    bottom: 8.5,
-    left: -2,
   },
 });
 
