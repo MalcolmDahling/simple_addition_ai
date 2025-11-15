@@ -50,7 +50,7 @@ export const InnerContrainerStyle = recipe({
 
 export const ButtonStyle = recipe({
   base: {
-    height: 55,
+    minHeight: 55,
     flex: '1 1 auto',
     padding: '5px 20px',
 
